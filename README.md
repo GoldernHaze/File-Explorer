@@ -11,7 +11,6 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Supports PDFs with a dedicated tab
 - Sort files by recent activity
 - Hide hidden/system files (dot files)
-- Global search to find files quickly
 - Clean and responsive UI with custom icons and tabs
 
 ---
