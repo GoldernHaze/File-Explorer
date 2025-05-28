@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <title>Video Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>📁 Browsing: {{ subpath or "Home" }}</h1>
+    <div class="nav-buttons">
+    <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
+    <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+    <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+
+</div>
+<br>
+
+    <div><br></div> 
+    <div class="container">
+        {% for folder in folders %}
+            <div class="item">
+                <a href="/browse/{{ subpath }}/{{ folder }}">
+                    <img src="/static/foldericon.png" alt="Folder">
+                    <p>{{ folder }}</p>
+                </a>
+            </div>
+        {% endfor %}
+
+        {% for video in videos %}
+            <div class="item">
+                <a href="{{ url_for('play_video', filepath=subpath + '/' + video) }}">
+                    <img src="/static/videoicon.png" alt="Video" style="width: 100px;">
+                    <p>{{ video }}</p>
+                </a>
+            </div>
+        {% endfor %}
+
+        {% for pdf in pdfs %}
+            <div class="item">
+                <a href="{{ url_for('view_pdf') }}?pdf={{ subpath }}/{{ pdf }}">
+                    <img src="/static/pdficon.png" alt="PDF" style="width: 100px;">
+                    <p>{{ pdf }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

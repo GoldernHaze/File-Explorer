@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>All Videos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🎬 All Videos (Recent First)</h1>
+
+    <div class="nav-buttons">
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">⬅ Go Back</a>
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+        <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+        <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+
+    </div>
+    <br>
+
+    <div class="container">
+        {% for video in videos %}
+        <div class="item">
+            <a href="{{ url_for('play_video', filepath=video) }}">
+                <img src="/static/videoicon.png" alt="Video" style="width: 100px;">
+                <p>{{ video.split('/')[-1] }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

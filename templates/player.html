@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Player</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        video {
+            width: 90%;
+            height: auto;
+            margin-top: 40px;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            background-color: black;
+            outline: none;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /* Remove border in fullscreen mode */
+        video:fullscreen,
+        video:-webkit-full-screen,
+        video:-moz-full-screen,
+        video:-ms-fullscreen {
+            border: none !important;
+            border-radius: 0 !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background-color: black !important;
+        }
+    </style>
+</head>
+<body>
+    <h2>Now Playing:</h2>
+    <h3>{{ filepath.rsplit('/', 1)[-1] }}</h3> <!-- 👈 This shows the video file name -->
+
+    <video id="player" controls autoplay>
+        <source src="/video/{{ filepath }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <br>
+    <a class="back-button" href="{{ url_for('browse', subpath=filepath.rsplit('/', 1)[0] if '/' in filepath else '') }}">⬅ Back to Folder</a>
+
+    <script>
+        const video = document.getElementById("player");
+
+        function removeBorderIfFullscreen() {
+            const isFullscreen = document.fullscreenElement ||
+                                 document.webkitFullscreenElement ||
+                                 document.mozFullScreenElement ||
+                                 document.msFullscreenElement;
+
+            if (isFullscreen) {
+                video.style.border = "none";
+                video.style.borderRadius = "0";
+            } else {
+                video.style.border = "2px solid #00ffff";
+                video.style.borderRadius = "10px";
+            }
+        }
+
+        document.addEventListener("fullscreenchange", removeBorderIfFullscreen);
+        document.addEventListener("webkitfullscreenchange", removeBorderIfFullscreen);
+        document.addEventListener("mozfullscreenchange", removeBorderIfFullscreen);
+        document.addEventListener("MSFullscreenChange", removeBorderIfFullscreen);
+    </script>
+</body>
+</html>
