@@ -54,7 +54,8 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Git and GitHub for version control and project hosting
 ---
 #Screenshot
-(assest/image.png)
+![Screenshot](assest/image.png)
+
 ---
 
    my ssd structure for refrence
