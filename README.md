@@ -57,3 +57,33 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 Author
 GoldernHaze
 
+
+
+
+
+
+
+
+
+
+
+my ssd structure for refrence
+ssd/
+├── Movies/
+├── Shows/
+├── Server/
+│   ├── app.py
+│   ├── README.md
+│   ├── assets/
+│   ├── static/
+│   ├── templates/
+│   ├── venv/
+│   └── command_output.log
+├── Books/
+├── SteamLibrary/
+├── Daco_4630591.png
+├── icon.bmp
+├── autorun.inf
+├── $RECYCLE.BIN/
+├── System Volume Information/
+
