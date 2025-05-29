@@ -40,11 +40,14 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 3. Install dependencies:
     ```bash
     pip install flask
-4. Run the app:
+4. Update the path:
+   make sure to update the path in app.py.
+
+5. Run the app:
    ```bash
    python3 app.py
 
-5. Open your browser and visit http://0.0.0.0 or address which it shows.
+6. Open your browser and visit http://0.0.0.0 or address which it shows.
 
 ---
 ## What I Learned
