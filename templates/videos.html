@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>All Videos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <title>File Explorer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<div class="header-bar">
     <h1>🎬 All Videos (Recent First)</h1>
+
+    <form method="GET" action="{{ url_for('search') }}" class="search-form">
+        <input type="text" name="q" placeholder="Search ..." />
+        <input type="hidden" name="type" value="{{ tab or 'files' }}">
+        <button type="submit">🔍</button>
+    </form>
+</div>
+
 
     <div class="nav-buttons">
         <a class="nav-button" href="{{ url_for('browse', subpath='') }}">⬅ Go Back</a>
