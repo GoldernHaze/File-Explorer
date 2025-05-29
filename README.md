@@ -47,18 +47,17 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 5. Open your browser and visit http://0.0.0.0 or address which it shows.
 
 ---
-# What I Learned
+## What I Learned
 - Python basics: file handling, functions, loops
 - Flask web development: routing, templates, passing data
 - HTML/CSS and Jinja2 templating
 - Git and GitHub for version control and project hosting
 ---
-# Screenshot
+## Screenshot
 ![Screenshot](assest/image.png)
 
 ---
-
-   my ssd structure for refrence
+### my ssd structure for refrence
       
       ssd/
       ├── Movies/
@@ -84,7 +83,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 
 
 ---
-Author
+###Author
 GoldernHaze
 
 
