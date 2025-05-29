@@ -57,7 +57,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ![Screenshot](assest/image.png)
 
 ---
-### my ssd structure for refrence
+### My ssd structure for refrence
       
       ssd/
       ├── Movies/
