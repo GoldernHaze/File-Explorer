@@ -83,7 +83,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 
 
 ---
-###Author
+### Author
 GoldernHaze
 
 
