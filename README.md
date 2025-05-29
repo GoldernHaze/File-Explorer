@@ -10,6 +10,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - View and play videos with built-in player
 - Supports PDFs with a dedicated tab
 - Sort files by recent activity
+- Global Search Bar (also list other files)
 - Hide hidden/system files (dot files)
 - Clean and responsive UI with custom icons and tabs
 
@@ -61,7 +62,10 @@ A simple web-based media explorer built with Python and Flask to browse, search,
       
       ssd/
       ├── Movies/
+      │   ├── Movie 1/
       ├── Shows/
+      │   ├── Show 1/
+      │   ├── Show 2/
       ├── Server/
       │   ├── app.py
       │   ├── README.md
