@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <title>File Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .search-bar input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+            font-size: 16px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-left: none;
+            background-color: #f8f8f8;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .search-bar button:hover {
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <h1>🔍 Search Results for "{{ query }}" ({{ tab.capitalize() }})</h1>
+
+    <form method="GET" action="{{ url_for('search') }}" class="search-form">
+        <input type="text" name="q" placeholder="Search ..." />
+        <input type="hidden" name="type" value="{{ tab or 'files' }}">
+        <button type="submit">🔍</button>
+    </form>
+</div>
+
+<div class="nav-buttons">
+    <a class="nav-button" href="{{ url_for('browse', subpath='') }}">⬅ Go Back</a>
+    <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+    <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+</div>
+
+<div class="container">
+    {% if results %}
+        {% for result in results %}
+            {% set filename = result.rsplit('/', 1)[-1] %}
+            {% set ext = filename.split('.')[-1].lower() %}
+            <div class="item">
+                {% if tab == "videos" %}
+                    <a href="{{ url_for('play_video', filepath=result) }}">
+                        <img src="/static/videoicon.png" alt="Video" width="100">
+                        <p>{{ filename }}</p>
+                    </a>
+                {% elif tab == "pdfs" %}
+                    <a href="{{ url_for('view_pdf', filepath=result) }}">
+                        <img src="/static/pdficon.png" alt="PDF" width="100">
+                        <p>{{ filename }}</p>
+                    </a>
+                {% else %}
+                    {% if ext == "pdf" %}
+                        <a href="{{ url_for('view_pdf', filepath=result) }}">
+                            <img src="/static/pdficon.png" alt="PDF" width="100">
+                            <p>{{ filename }}</p>
+                        </a>
+                    {% elif ext in ["mp4", "mkv", "avi"] %}
+                        <a href="{{ url_for('play_video', filepath=result) }}">
+                            <img src="/static/videoicon.png" alt="Video" width="100">
+                            <p>{{ filename }}</p>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('browse', subpath=result.rsplit('/', 1)[0]) }}">
+                            <img src="/static/fileicon.png" alt="File" width="100">
+                            <p>{{ filename }}</p>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; font-size: 18px;">No results found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
