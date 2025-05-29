@@ -3,11 +3,20 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
-    <title>Video Explorer</title>
+    <title>File Explorer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<div class="header-bar">
     <h1>📁 Browsing: {{ subpath or "Home" }}</h1>
+
+    <form method="GET" action="{{ url_for('search') }}" class="search-form">
+        <input type="text" name="q" placeholder="Search ..." />
+        <input type="hidden" name="type" value="{{ tab or 'files' }}">
+        <button type="submit">🔍</button>
+    </form>
+</div>
+
     <div class="nav-buttons">
     <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
     <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
