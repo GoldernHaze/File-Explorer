@@ -116,6 +116,30 @@ def all_videos():
     base_dir = "/Volumes/SERVER"  # <-- change this if needed
     videos = get_all_videos(base_dir)
     return render_template("videos.html", videos=[v[0] for v in videos])
+@app.route("/search")
+def search():
+    query = request.args.get("q", "").lower()
+    content_type = request.args.get("type", "files")
+
+    base_dir = "/Volumes/SERVER"
+
+    matched = []
+
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            if file.startswith("._"):
+                continue  # skip dot files
+            full_path = os.path.join(root, file)
+            rel_path = os.path.relpath(full_path, base_dir).replace("\\", "/")
+            if query in file.lower():
+                if content_type == "videos" and file.lower().endswith(VIDEO_EXTENSIONS):
+                    matched.append(rel_path)
+                elif content_type == "pdfs" and file.lower().endswith(".pdf"):
+                    matched.append(rel_path)
+                elif content_type == "files":
+                    matched.append(rel_path)
+
+    return render_template("search_results.html", query=query, results=matched, tab=content_type)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
