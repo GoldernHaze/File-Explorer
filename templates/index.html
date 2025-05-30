@@ -54,6 +54,14 @@
                 </a>
             </div>
         {% endfor %}
+        {% for file in other_files %}
+            <div class="item">
+                <a href="{{ url_for('serve_file', path=(subpath + '/' + file).strip('/')) }}">
+                    <img src="/static/fileicon.png" alt="File" style="width: 100px;">
+                    <p>{{ file }}</p>
+                </a>
+            </div>
+        {% endfor %}
     </div>
 </body>
 </html>
