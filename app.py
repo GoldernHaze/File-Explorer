@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 # Actual SSD path
-VIDEO_ROOT = "/Volumes/SERVER"  # <-- Update this to your mount path
+FILE_ROOT = "/Volumes/SERVER"  # <-- Update this to your mount path
 
 # Allowed file extensions
 VIDEO_EXTENSIONS = ('.mp4', '.mkv', '.avi', '.mov', '.webm')
@@ -20,7 +20,7 @@ def root():
 @app.route('/browse/', defaults={'subpath': ''})
 @app.route('/browse/<path:subpath>')
 def browse(subpath):
-    full_path = os.path.join(VIDEO_ROOT, subpath)
+    full_path = os.path.join(FILE_ROOT, subpath)
 
     if not os.path.exists(full_path):
         return abort(404)
@@ -56,7 +56,7 @@ def browse(subpath):
 
 @app.route('/video/<path:filepath>')
 def stream_video(filepath):
-    dir_path = os.path.join(VIDEO_ROOT, os.path.dirname(filepath))
+    dir_path = os.path.join(FILE_ROOT, os.path.dirname(filepath))
     filename = os.path.basename(filepath)
     return send_from_directory(dir_path, filename)
 
@@ -86,13 +86,13 @@ def get_all_pdfs(base_dir):
     return sorted(pdf_list, key=lambda x: x[1], reverse=True)
 @app.route('/all_pdfs')
 def all_pdfs():
-    base_dir = "/Volumes/SERVER"  # adjust as needed
+    base_dir = FILE_ROOT  # adjust as needed  #GoldernHaze
     pdfs = get_all_pdfs(base_dir)
     return render_template("pdfs.html", pdfs=[p[0] for p in pdfs])
 
 @app.route('/file/<path:path>')
 def serve_file(path):
-    full_path = os.path.join(VIDEO_ROOT, path)
+    full_path = os.path.join(FILE_ROOT, path)
     if os.path.isfile(full_path):
         return send_file(full_path)
     else:
@@ -113,7 +113,7 @@ def get_all_videos(base_dir):
 
 @app.route('/all_videos')
 def all_videos():
-    base_dir = "/Volumes/SERVER"  # <-- change this if needed
+    base_dir = FILE_ROOT  # <-- change this if needed #GoldernHaze
     videos = get_all_videos(base_dir)
     return render_template("videos.html", videos=[v[0] for v in videos])
 @app.route("/search")
