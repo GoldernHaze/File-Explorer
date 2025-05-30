@@ -61,6 +61,10 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ![Screenshot](assest/image.png)
 
 ---
+## In Upcoming Update
+- you will be able to hide other files and folder.(currently working)
+
+---
 ### My ssd structure for refrence
 - I renamed FILE EXPLORER to Server
 - I also hide some folders and files to keep my UI clean. You can also do by updating "app.py" by editing hidden_folders. 
