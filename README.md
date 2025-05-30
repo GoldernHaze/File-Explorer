@@ -12,8 +12,9 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Sort files by recent activity
 - Global Search Bar (also list other files)
 - Hide hidden/system files (dot files)
+- Hide some folders.(File-Explorer,Server,System Volume Information,etc.)
 - Clean and responsive UI with custom icons and tabs
-
+- Shows other files.(in new update)
 ---
 
 ## Technologies Used
