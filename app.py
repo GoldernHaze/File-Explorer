@@ -52,7 +52,19 @@ def browse(subpath):
             if e.lower().endswith(PDF_EXTENSION) 
             and not e.startswith('.')]
 
-    return render_template("index.html", folders=folders, videos=videos, pdfs=pdfs, subpath=subpath)
+    # New: Other files (exclude videos, pdfs, hidden files)
+    other_files = [e for e in entries 
+                   if os.path.isfile(os.path.join(full_path, e)) 
+                   and not e.lower().endswith(VIDEO_EXTENSIONS) 
+                   and not e.lower().endswith(PDF_EXTENSION) 
+                   and not e.startswith('.')]
+
+    return render_template("index.html", 
+                           folders=folders, 
+                           videos=videos, 
+                           pdfs=pdfs, 
+                           other_files=other_files,  # <-- added here
+                           subpath=subpath)
 
 @app.route('/video/<path:filepath>')
 def stream_video(filepath):
