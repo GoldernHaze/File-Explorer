@@ -61,12 +61,18 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 
 ---
 ### My ssd structure for refrence
+- I renamed FILE EXPLORER to Server
+- I also hide some folders and files to keep my UI clean. You can also do by updating "app.py" by editing hidden_folders. 
       
       ssd/
       ├── Movies/
       │   ├── Movie 1/
+      │   │   ├── video1.mp4
+      │   │   ├── video2.mkv
       ├── Shows/
       │   ├── Show 1/
+      │   │   ├── Episode 1.mp4
+      │   │   ├── Episode 2.mp4
       │   ├── Show 2/
       ├── Server/
       │   ├── app.py
@@ -77,6 +83,9 @@ A simple web-based media explorer built with Python and Flask to browse, search,
       │   ├── venv/
       │   └── command_output.log
       ├── Books/
+      │   ├── Book1/
+      │   │   ├── Part 1.pdf
+      │   │   ├── Part 2.pdf
       ├── SteamLibrary/
       ├── Daco_4630591.png
       ├── icon.bmp
