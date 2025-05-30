@@ -121,7 +121,7 @@ def search():
     query = request.args.get("q", "").lower()
     content_type = request.args.get("type", "files")
 
-    base_dir = "/Volumes/SERVER"
+    base_dir = FILE_ROOT
 
     matched = []
 
