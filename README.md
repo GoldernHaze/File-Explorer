@@ -1,6 +1,6 @@
-# Video Explorer
+# File Explorer
 
-A simple web-based media explorer built with Python and Flask to browse, search, and play videos and PDFs on your SSD.
+A simple web-based media explorer built with Python and Flask to browse, search, and play videos and PDFs on your SSD.(originally Video Explorer 2.5)
 
 ---
 
