@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <title>File Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="header-bar">
+        <h1>⚙️ Settings</h1>
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">🏠 Back to Home</a>
+    </div>
+</div>
+
+    <div class="nav-buttons">
+    <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
+    <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+    <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+    <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
+
+</div>
+<div class="container">
+    <form method="POST">
+        <label>
+            <input type="checkbox" name="show_other_files" {% if show_other_files %}checked{% endif %}>
+            Show Other Files (non-media types like .txt, .zip, etc.)
+        </label>
+        <br><br>
+
+        <label for="default_tab">Default Landing Tab:</label>
+        <select name="default_tab" id="default_tab">
+            <option value="files" {% if default_tab == 'files' %}selected{% endif %}>📁 Files</option>
+            <option value="videos" {% if default_tab == 'videos' %}selected{% endif %}>🎬 Videos</option>
+            <option value="pdfs" {% if default_tab == 'pdfs' %}selected{% endif %}>📚 PDFs</option>
+        </select>
+        <br><br>
+
+        <button type="submit">💾 Save Settings</button>
+    </form>
+</div>
+
+
+</body>
+</html>
