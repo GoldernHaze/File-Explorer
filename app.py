@@ -1,10 +1,13 @@
 from flask import Flask, render_template, send_from_directory, send_file, abort, redirect, url_for, request
 import os
+from flask import session
+
 
 app = Flask(__name__)
+app.secret_key = 'hardikfileexplorer_1a8d3f90e0b74e22b6f9d87ac4fcd134'
 
 # Actual SSD path
-FILE_ROOT = "/Volumes/SERVER"  # <-- Update this to your mount path
+FILE_ROOT = "/Volumes/samba/usb1_1_1"  # <-- Update this to your mount path
 
 # Allowed file extensions
 VIDEO_EXTENSIONS = ('.mp4', '.mkv', '.avi', '.mov', '.webm')
@@ -15,7 +18,14 @@ HIDDEN_FOLDERS = {'server', 'System Volume Information', '$RECYCLE.BIN', 'server
 
 @app.route('/')
 def root():
-    return redirect(url_for('browse', subpath=''))
+    default_tab = session.get('default_tab', 'files')
+
+    if default_tab == 'videos':
+        return redirect(url_for('all_videos'))
+    elif default_tab == 'pdfs':
+        return redirect(url_for('all_pdfs'))
+    else:
+        return redirect(url_for('browse', subpath=''))
 
 @app.route('/browse/', defaults={'subpath': ''})
 @app.route('/browse/<path:subpath>')
@@ -24,15 +34,6 @@ def browse(subpath):
 
     if not os.path.exists(full_path):
         return abort(404)
-
-    if os.path.isfile(full_path):
-        # Optional: redirect based on file type
-        if full_path.lower().endswith(PDF_EXTENSION):
-            return redirect(url_for('view_pdf', pdf=subpath))
-        elif full_path.lower().endswith(VIDEO_EXTENSIONS):
-            return redirect(url_for('play_video', filepath=subpath))
-        else:
-            return send_file(full_path)
 
     try:
         entries = os.listdir(full_path)
@@ -52,18 +53,20 @@ def browse(subpath):
             if e.lower().endswith(PDF_EXTENSION) 
             and not e.startswith('.')]
 
-    # New: Other files (exclude videos, pdfs, hidden files)
-    other_files = [e for e in entries 
-                   if os.path.isfile(os.path.join(full_path, e)) 
-                   and not e.lower().endswith(VIDEO_EXTENSIONS) 
-                   and not e.lower().endswith(PDF_EXTENSION) 
-                   and not e.startswith('.')]
+    # ✅ Only show other_files if enabled in session
+    other_files = []
+    if session.get('show_other_files', False):
+        other_files = [e for e in entries 
+                       if os.path.isfile(os.path.join(full_path, e)) 
+                       and not e.lower().endswith(VIDEO_EXTENSIONS) 
+                       and not e.lower().endswith(PDF_EXTENSION) 
+                       and not e.startswith('.')]
 
     return render_template("index.html", 
                            folders=folders, 
                            videos=videos, 
                            pdfs=pdfs, 
-                           other_files=other_files,  # <-- added here
+                           other_files=other_files, 
                            subpath=subpath)
 
 @app.route('/video/<path:filepath>')
@@ -152,6 +155,28 @@ def search():
                     matched.append(rel_path)
 
     return render_template("search_results.html", query=query, results=matched, tab=content_type)
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == 'POST':
+        # Save checkbox setting to session
+        show_other_files = request.form.get('show_other_files') == 'on'
+        session['show_other_files'] = show_other_files
 
+        # Optional: you can also add more settings here
+        default_tab = request.form.get('default_tab', 'files')
+        session['default_tab'] = default_tab
+
+        return redirect(url_for('settings'))
+
+    return render_template(
+        'settings.html',
+        show_other_files=session.get('show_other_files', False),
+        default_tab=session.get('default_tab', 'files')
+    )
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(
+        host='0.0.0.0',
+        port=80,
+        #ssl_context=('cert/game.com.pem', 'cert/game.com-key.pem'),
+        debug=True
+    )
