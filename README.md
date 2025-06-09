@@ -15,7 +15,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Hide some folders.(File-Explorer,Server,System Volume Information,etc.)
 - Clean and responsive UI with custom icons and tabs
 - Shows/Hide other files.(from Settings Tab)(New)
-- New Settings tab for customisation.(Newly Added)
+- New Settings tab for customisation.(New)
 ---
 
 ## Technologies Used
