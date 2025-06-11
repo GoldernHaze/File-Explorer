@@ -62,8 +62,10 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ![Screenshot](assest/image.png)
 
 ---
-## In Upcoming Update
-- you will be able to hide other files and folder.(currently working)
+## In Upcoming Update (last updated: 10 Jun 25)
+- image tab
+- quick file share/drop (temp or permanent) (public or private)
+- more settings
 
 ---
 ### My ssd structure for refrence
