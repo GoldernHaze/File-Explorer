@@ -13,7 +13,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Global Search Bar (also list other files)
 - Hide hidden/system files (dot files)
 - Hide some folders.(File-Explorer,Server,System Volume Information,etc.)
-- Clean and responsive UI with custom icons and tabs
+- Clean and responsive UI with custom icons and tabs 🆕 
 - New Settings tab for customisation.![NEW](https://img.shields.io/badge/-NEW-red)
 - Shows/Hide other files.(from Settings Tab)![NEW](https://img.shields.io/badge/-NEW-red)
 ---
@@ -63,9 +63,10 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 
 ---
 ## In Upcoming Update (last updated: 10 Jun 25)
-- image tab
+- image tab 
 - quick file share/drop (temp or permanent) (public or private)
 - more settings
+- droping next version 3.0 on 15 Jun 2025.(currently fixing some issues)
 
 ---
 ### My ssd structure for refrence
