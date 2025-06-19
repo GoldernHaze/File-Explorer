@@ -62,6 +62,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ![Screenshot](assest/image.png)
 
 ---
+note: due to some unavoidable issues updates are delayed. Thanks for understanding .
 ## In Upcoming Update (last updated: 10 Jun 25)
 - image tab 
 - quick file share/drop (temp or permanent) (public or private)
