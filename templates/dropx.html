@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+        }
+
+        .upload-box {
+    background-color: #111;
+    border: 2px solid #00ffd0;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 720px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    position: relative; /* This is required */
+}
+
+        .upload-box input[type="file"],
+        .upload-box input[type="text"],
+        .upload-box button {
+            margin: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .upload-box button {
+            background-color: #00ffd0;
+            color: black;
+            cursor: pointer;
+        }
+
+        .upload-box button:hover {
+            background-color: #00c0a0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .dropx-item {
+            background-color: #111;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 255, 208, 0.2);
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .dropx-item:hover {
+            transform: scale(1.03);
+        }
+
+        .dropx-item img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .filename {
+            font-size: 0.85em;
+            color: #eee;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            display: block;
+            padding: 0 5px;
+        }
+.action-icons a,
+.action-icons button {
+    font-size: 1.2em;
+    color: #00ffd0;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+
+        .dropx-item:hover .action-icons {
+            opacity: 1;
+        }
+
+        .action-icons img {
+            width: 18px;
+            cursor: pointer;
+        }
+
+        .header-bar,
+        .nav-buttons {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .nav-button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #222;
+            color: #00ffd0;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background-color: #00c0a0;
+        }
+
+        progress {
+            height: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #333;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #00ffd0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <h1>📤 DropX (Quick Uploads)</h1>
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">🏠 Back to Home</a>
+    </div>
+
+    <div class="nav-buttons">
+        
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">⬅ Go Back</a>
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+        <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+        <a class="nav-button" href="{{ url_for('all_images') }}">🖼️ Images</a>
+        <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+        <a class="nav-button" href="{{ url_for('dropx') }}">📤 DropX</a>
+        <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
+    </div>
+
+    <div class="upload-box">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput" required>
+            <input type="text" name="rename" id="renameInput" placeholder="Rename (optional)">
+            <button type="submit">Upload</button>
+            <button type="button" onclick="deleteAll()">Delete All</button>
+            <button type="button" onclick="refreshList()" class="refresh-btn">🔄</button>
+        <div id="progressContainer" style="display:none; margin-top: 10px;">
+                <progress id="uploadProgress" value="0" max="100" style="width: 80%;"></progress>
+                <span id="progressText">0%</span>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid">
+        {% for file in files %}
+        <div class="dropx-item">
+            <a href="{{ url_for('download_dropx_file', filename=file) }}" download>
+                <img src="{{ url_for('static', filename='fileicon.png') }}" alt="File">
+                <p class="filename">{{ file }}</p>
+            </a>
+            <div class="action-icons">
+<a href="{{ url_for('download_dropx_file', filename=file) }}" title="Download" download>📥</a>
+    <form method="POST" action="{{ url_for('delete_dropx', filename=file) }}"
+          style="display:inline;" onsubmit="return confirm('Delete {{ file }}?');">
+        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 1.1em;" title="Delete">🗑️</button>
+    </form>
+</div>
+
+        </div>
+        {% endfor %}
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const renameInput = document.getElementById('renameInput');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('uploadProgress');
+            const progressText = document.getElementById('progressText');
+
+            if (!fileInput.files.length) return;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('rename', renameInput.value);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '{{ url_for("upload_dropx") }}', true);
+
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    progressContainer.style.display = 'block';
+                    progressBar.value = percent;
+                    progressText.innerText = percent + '%';
+                }
+            };
+
+            xhr.onload = function () {
+                if (xhr.status === 204 || xhr.status === 200) {
+                    progressText.innerText = 'Uploaded!';
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                        progressBar.value = 0;
+                        progressText.innerText = '0%';
+                        fileInput.value = '';
+                        renameInput.value = '';
+                        location.reload(); // refresh to show new file
+                    }, 1000);
+                } else {
+                    alert('Upload failed.');
+                }
+            };
+
+            xhr.onerror = function () {
+                alert('Upload error.');
+            };
+
+            xhr.send(formData);
+        });
+
+        function deleteAll() {
+            if (!confirm("Delete all files?")) return;
+            fetch('{{ url_for("delete_all_dropx") }}', { method: 'POST' }).then(() => location.reload());
+        }
+
+    function refreshList() {
+        location.reload();
+    }
+        
+    </script>
+</body>
+</html>

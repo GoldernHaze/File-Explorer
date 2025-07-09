@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<div class="header-bar">
-    <h1>🎬 All Videos (Recent First)</h1>
-
+    <div class="header-bar">
+        <h1>🖼️ All Images (Recent First)</h1>
     <form method="GET" action="{{ url_for('search') }}" class="search-form">
         <input type="text" name="q" placeholder="Search ..." />
         <input type="hidden" name="type" value="{{ tab or 'files' }}">
         <button type="submit">🔍</button>
     </form>
 </div>
-
 
 <div class="nav-buttons">
     <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
@@ -26,18 +24,15 @@
     <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
     <a class="nav-button" href="{{ url_for('dropx') }}">📤 DropX</a>
     <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
-
 </div>
-    <br>
-
     <div class="container">
-        {% for video in videos %}
-        <div class="item">
-            <a href="{{ url_for('play_video', filepath=video) }}">
-                <img src="/static/videoicon.png" alt="Video" style="width: 100px;">
-                <p>{{ video.split('/')[-1] }}</p>
-            </a>
-        </div>
+        {% for image in images %}
+            <div class="item">
+                <a href="{{ url_for('serve_file', path=image) }}" target="_blank">
+                    <img src="{{ url_for('serve_file', path=image) }}" alt="Image" style="width: 100px; height: auto;">
+                    <p>{{ image.split('/')[-1] }}</p>
+                </a>
+            </div>
         {% endfor %}
     </div>
 </body>

@@ -49,10 +49,12 @@
     <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
     <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
     <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_images') }}">🖼️ Images</a>
     <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
     <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
 
 </div>
+
 <div class="container">
     {% if results %}
         {% for result in results %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Editor Files</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .file-list {
+            margin-top: 20px;
+        }
+        .file-item a {
+            color: #00bfff;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Select a file to edit:</h2>
+    <div class="file-list">
+        {% for file in files %}
+            <div class="file-item">
+                <a href="{{ url_for('open_text_file', filename=file) }}">📝 {{ file }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -17,11 +17,13 @@
     </form>
 </div>
 
-<div class="nav-buttons">
+    <div class="nav-buttons">
     <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
     <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
     <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_images') }}">🖼️ Images</a>
     <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+    <a class="nav-button" href="{{ url_for('dropx') }}">📤 DropX</a>
     <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
 
 </div>
@@ -55,14 +57,18 @@
                 </a>
             </div>
         {% endfor %}
-        {% for file in other_files %}
-            <div class="item">
-                <a href="{{ url_for('serve_file', path=(subpath + '/' + file).strip('/')) }}">
-                    <img src="/static/fileicon.png" alt="File" style="width: 100px;">
-                    <p>{{ file }}</p>
-                </a>
-            </div>
-        {% endfor %}
+
+        {% if other_files %}
+    {% for file in other_files %}
+        <div class="item">
+            <a href="{{ url_for('serve_file', path=subpath + '/' + file) }}">
+                <img src="/static/fileicon.png" alt="File" style="width: 100px;">
+                <p>{{ file }}</p>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}
+
     </div>
 </body>
 </html>

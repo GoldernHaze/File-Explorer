@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropX (Quick Uploads)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+    <style>
+        .upload-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .file-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .file-item {
+            width: 120px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .file-item:hover {
+            transform: scale(1.05);
+        }
+
+        .file-item img {
+            width: 80px;
+        }
+
+        .file-name {
+            margin-top: 5px;
+            font-size: 0.9em;
+            word-wrap: break-word;
+        }
+
+        .file-actions {
+            display: none;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            gap: 5px;
+        }
+
+        .file-item:hover .file-actions {
+            display: flex;
+        }
+
+        .file-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-all-btn {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <h1>📥 DropX (Quick Uploads)</h1>
+
+        <form method="GET" action="{{ url_for('search') }}" class="search-form">
+            <input type="text" name="q" placeholder="Search ..." />
+            <input type="hidden" name="type" value="dropx">
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+
+    <div class="nav-buttons">
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">⬅ Go Back</a>
+        <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
+        <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+        <a class="nav-button" href="{{ url_for('all_images') }}">🖼️ Images</a>
+        <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+        <a class="nav-button" href="{{ url_for('dropx') }}">📥 DropX</a>
+        <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
+    </div>
+
+    <div class="container">
+        <form class="upload-form" method="POST" action="/upload-dropx" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <input type="text" name="rename" placeholder="Rename (optional)">
+            <button type="submit">⬆ Upload</button>
+            <button type="button" class="delete-all-btn" onclick="deleteAll()">🗑️ Delete All</button>
+        </form>
+
+        <div class="file-grid" id="fileList">
+            <!-- Files will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        async function loadFiles() {
+            const res = await fetch('/list-dropx');
+            const files = await res.json();
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+            files.forEach(file => {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = `
+                    <a href="/dropx_storage/${file}" download>
+                        <img src="/static/fileicon.png" alt="File Icon">
+                    </a>
+                    <div class="file-name">${file}</div>
+                    <div class="file-actions">
+                        <button onclick="downloadFile('${file}')">⬇️</button>
+                        <button onclick="deleteFile('${file}')">🗑️</button>
+                    </div>
+                `;
+                fileList.appendChild(div);
+            });
+        }
+
+        function deleteFile(file) {
+            fetch(`/delete-dropx/${file}`, { method: 'POST' })
+                .then(loadFiles);
+        }
+
+        function downloadFile(file) {
+            window.location.href = `/dropx_storage/${file}`;
+        }
+
+        function deleteAll() {
+            fetch('/list-dropx')
+                .then(res => res.json())
+                .then(files => {
+                    files.forEach(file => {
+                        fetch(`/delete-dropx/${file}`, { method: 'POST' });
+                    });
+                    setTimeout(loadFiles, 500);
+                });
+        }
+
+        loadFiles();
+    </script>
+</body>
+</html>

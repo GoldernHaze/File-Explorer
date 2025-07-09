@@ -6,7 +6,7 @@
     <title>File Explorer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
+<body style="background-image:url(https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDhjNDZ6emU4MHAzc3M0bzFraml3aDJ6Z3RwdXdscTBnNzRsOGpreiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WoD6JZnwap6s8/giphy.gif);">
     <div class="header-bar">
         <h1>⚙️ Settings</h1>
         <a class="nav-button" href="{{ url_for('browse', subpath='') }}">🏠 Back to Home</a>
@@ -14,10 +14,12 @@
 </div>
 
     <div class="nav-buttons">
-    <a class="nav-button" href="{{ url_for('browse', subpath=subpath.rsplit('/', 1)[0] if '/' in subpath else '') }}">⬅ Go Back</a>
+<a class="nav-button" href="#" onclick="history.back(); return false;">⬅ Go Back</a>
     <a class="nav-button" href="{{ url_for('browse', subpath='') }}">📁 Files</a>
     <a class="nav-button" href="{{ url_for('all_videos') }}">🎬 Videos</a>
+    <a class="nav-button" href="{{ url_for('all_images') }}">🖼️ Images</a>
     <a class="nav-button" href="{{ url_for('all_pdfs') }}">📚 PDFs</a>
+    <a class="nav-button" href="{{ url_for('dropx') }}">📤 DropX</a>
     <a class="nav-button" href="{{ url_for('settings') }}">⚙️ Settings</a>
 
 </div>
@@ -25,7 +27,7 @@
     <form method="POST">
         <label>
             <input type="checkbox" name="show_other_files" {% if show_other_files %}checked{% endif %}>
-            Show Other Files (non-media types like .txt, .zip, etc.)
+            Show Other Files (non-media types like .txt, .zip, .png, etc.)
         </label>
         <br><br>
 
@@ -33,7 +35,9 @@
         <select name="default_tab" id="default_tab">
             <option value="files" {% if default_tab == 'files' %}selected{% endif %}>📁 Files</option>
             <option value="videos" {% if default_tab == 'videos' %}selected{% endif %}>🎬 Videos</option>
+            <option value="images" {% if default_tab == 'images' %}selected{% endif %}>🖼️ Images</option>
             <option value="pdfs" {% if default_tab == 'pdfs' %}selected{% endif %}>📚 PDFs</option>
+            <option value="dropx" {% if default_tab == 'dropx' %}selected{% endif %}>📤 DropX</option>
         </select>
         <br><br>
 
