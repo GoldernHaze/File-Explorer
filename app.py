@@ -247,6 +247,32 @@ def delete_all_dropx():
     for file in os.listdir(UPLOAD_FOLDER):
         os.remove(os.path.join(UPLOAD_FOLDER, file))
     return '', 204
+@app.route('/edit/<path:filename>')
+def edit_file(filename):
+    file_path = os.path.join(FILE_ROOT, filename)
+    if not os.path.isfile(file_path):
+        return f"File not found: {filename}", 404
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    return render_template('text_editor.html', filename=filename, content=content)
+
+
+@app.route('/save', methods=['POST'])
+def save_file():
+    filename = request.form['filename']
+    content = request.form['content']
+    file_path = os.path.join(FILE_ROOT, filename)
+
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        flash('File saved successfully!', 'success')
+    except Exception as e:
+        flash(f'Error saving file: {e}', 'error')
+
+    return redirect(url_for('edit_file', filename=filename))
+
+
 
 if __name__ == '__main__':
     app.run(
