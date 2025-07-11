@@ -65,9 +65,9 @@
 
 ## ✍️ v3.1 – Built-in Text Editor
 - 📝 Full-featured text editor added:
-- Open and edit `.txt`, `.py`, `.json`, etc. directly in browser
-- 💾 Save with one click
-- 🌑 Modern dark UI with auto-resize and improved UX
+  - Open and edit `.txt`, `.py`, `.json`, etc. directly in browser
+  - 💾 Save with one click
+  - 🌑 Modern dark UI with auto-resize and improved UX
 - ✅ Fixed major bugs for stability
 
 ---
