@@ -31,6 +31,7 @@
 
     <div><br></div> 
     <div class="container">
+
         {% for folder in folders %}
             <div class="item">
                 <a href="/browse/{{ subpath }}/{{ folder }}">
@@ -58,16 +59,25 @@
             </div>
         {% endfor %}
 
-        {% if other_files %}
+{% if other_files %}
     {% for file in other_files %}
+        {% set ext = file.rsplit('.', 1)[-1].lower() %}
         <div class="item">
-            <a href="{{ url_for('serve_file', path=subpath + '/' + file) }}">
-                <img src="/static/fileicon.png" alt="File" style="width: 100px;">
-                <p>{{ file }}</p>
-            </a>
+            {% if ext in ['txt', 'py', 'md', 'json', 'html', 'css', 'js'] %}
+                <a href="{{ url_for('edit_file', filename=subpath + '/' + file) }}">
+                    <img src="/static/texticon.png" alt="Text File" style="width: 100px;">
+                    <p>{{ file }}</p>
+                </a>
+            {% else %}
+                <a href="{{ url_for('serve_file', path=subpath + '/' + file) }}">
+                    <img src="/static/fileicon.png" alt="File" style="width: 100px;">
+                    <p>{{ file }}</p>
+                </a>
+            {% endif %}
         </div>
     {% endfor %}
 {% endif %}
+
 
     </div>
 </body>
