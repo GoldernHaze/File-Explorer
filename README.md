@@ -64,8 +64,8 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ![Screenshot](assest/image.png)
 
 ---
-note: due to some unavoidable issues updates are delayed. Thanks for understanding .
-## In Upcoming Update (last updated: 11 July 25) (Due to some unavoidable issues updates might not come. Thanks if you read till here)
+note: (Due to some unavoidable issues updates might not come. Thanks if you read till here)
+## In Upcoming Update (last updated: 11 July 25)
 - more settings
 - droping next version 3.1(fixed).
 
