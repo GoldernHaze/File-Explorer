@@ -7,7 +7,7 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 ## Features
 
 - Browse folders and files on your SSD
-- View and play videos with built-in player
+- View and play videos with built-in player.
 - Supports PDFs with a dedicated tab
 - Sort files by recent activity
 - Global Search Bar (also list other files)
