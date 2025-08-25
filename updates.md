@@ -63,11 +63,14 @@
 
 ---
 
-## ✍️ v3.1 – Built-in Text Editor
+## ✍️ v3.1 – Built-in Text Editor & Theme Switcher
 - 📝 Full-featured text editor added:
   - Open and edit `.txt`, `.py`, `.json`, etc. directly in browser
   - 💾 Save with one click
   - 🌑 Modern dark UI with auto-resize and improved UX
+- 🎨 Multiple themes added:
+  - Switch instantly between `style.css`, `style1.css`, … `style5.css`
+  - Preference saved in browser (localStorage)
 - ✅ Fixed major bugs for stability
 
 ---
