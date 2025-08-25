@@ -1,4 +1,4 @@
-# File Explorer 3.1
+# File Explorer 3.1.1 (beta)
 
 A simple web-based media explorer built with Python and Flask to browse, search, and play videos and PDFs on your SSD.(originally Video Explorer 2.5)
 
@@ -14,10 +14,11 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 - Hide hidden/system files (dot files)
 - Hide some folders.(File-Explorer,Server,System Volume Information,etc.)
 - Clean and responsive UI with custom icons and tabs.
-- New Settings tab for customisation.🆕
-- Shows/Hide other files.(from Settings Tab).🆕
-- DropX-Quick file share/drop ![NEW](https://img.shields.io/badge/-NEW-red)
-- Added text editor for .txt .py etc files.![NEW](https://img.shields.io/badge/-NEW-red)
+- New Settings tab for customisation.
+- Shows/Hide other files.(from Settings Tab).
+- DropX-Quick file share/drop 🆕
+- Added text editor for .txt .py etc files.🆕
+- Added style toggle settings.![NEW](https://img.shields.io/badge/-NEW-red)
 ---
 
 ## Technologies Used
@@ -65,9 +66,9 @@ A simple web-based media explorer built with Python and Flask to browse, search,
 
 ---
 note: (Due to some unavoidable issues updates might not come. Thanks if you read till here)
-## In Upcoming Update (last updated: 11 July 25)
+## In Upcoming Update (last updated: 25 Aug 25)
 - more settings
-- droping next version 3.1(fixed).
+- droping next version 3.1.1(fixed).
 
 ---
 ### My ssd structure for refrence
