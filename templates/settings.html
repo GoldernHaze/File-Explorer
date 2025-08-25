@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
     <title>File Explorer</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link id="theme-link" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body style="background-image:url(https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDhjNDZ6emU4MHAzc3M0bzFraml3aDJ6Z3RwdXdscTBnNzRsOGpreiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WoD6JZnwap6s8/giphy.gif);">
+<body> <!--style="background-image:url(https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDhjNDZ6emU4MHAzc3M0bzFraml3aDJ6Z3RwdXdscTBnNzRsOGpreiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WoD6JZnwap6s8/giphy.gif);">-->
     <div class="header-bar">
         <h1>⚙️ Settings</h1>
         <a class="nav-button" href="{{ url_for('browse', subpath='') }}">🏠 Back to Home</a>
@@ -40,11 +40,37 @@
             <option value="dropx" {% if default_tab == 'dropx' %}selected{% endif %}>📤 DropX</option>
         </select>
         <br><br>
+        
+        <label for="theme">Select Theme:</label>
+    <select id="theme">
+        <option value="style.css">Default</option>
+        <option value="style1.css">Style 1</option>
+        <option value="style2.css">Style 2</option>
+        <option value="style3.css">Style 3</option>
+        <option value="style4.css">Style 4</option>
+        <option value="style5.css">Style 5</option>
+    </select>
 
+        <br><br>
         <button type="submit">💾 Save Settings</button>
     </form>
 </div>
 
+    <script>
+        const themeSelect = document.getElementById("theme");
+        const themeLink = document.getElementById("theme-link");
 
+        // Load saved theme in dropdown
+        const savedTheme = localStorage.getItem("theme") || "style.css";
+        themeSelect.value = savedTheme;
+        themeLink.href = "/static/" + savedTheme;
+
+        // Change theme instantly on selection
+        themeSelect.addEventListener("change", function () {
+            const selectedTheme = themeSelect.value;
+            themeLink.href = "/static/" + selectedTheme;
+            localStorage.setItem("theme", selectedTheme);
+        });
+    </script>
 </body>
 </html>

@@ -5,6 +5,13 @@
     <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
     <title>File Explorer</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link id="theme-link" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme") || "style.css";
+            document.getElementById("theme-link").href = "/static/" + savedTheme;
+        });
+    </script>
 </head>
 <body>
 <div class="header-bar">

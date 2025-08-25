@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = 'hardikfileexplorer_1a8d3f90e0b74e22b6f9d87ac4fcd134'
 
 # Actual SSD path
-FILE_ROOT = "/Volumes/samba/usb1_1_1"  # <-- Update this to your mount path #my ssd is plugged into my router for ease/
+FILE_ROOT = "/workspaces/"  # <-- Update this to your mount path #my ssd is plugged into my router for ease/
 
 # Allowed file extensions
 VIDEO_EXTENSIONS = ('.mp4', '.mkv', '.avi', '.mov', '.webm')
@@ -277,7 +277,8 @@ def save_file():
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=80,
+        #port=80,  #global
+        port=3000,
         #ssl_context=('cert/game.com.pem', 'cert/game.com-key.pem'),
         debug=True
     )
