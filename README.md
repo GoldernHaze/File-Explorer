@@ -1,9 +1,12 @@
+<p align="center">
+    <img width="95%" src="assest/gg.png">
+</p>
+
 # File Explorer 3.1.1 (beta)
 
 A simple web-based media explorer built with Python and Flask to browse, search, and play videos and PDFs on your SSD.(originally Video Explorer 2.5)
-<p align="center">
-    <img width="70%" src="assest/gg.png">
-</p>
+
+
 ---
 
 ## Features
