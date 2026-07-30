@@ -1,7 +1,9 @@
 # File Explorer 3.1.1 (beta)
 
 A simple web-based media explorer built with Python and Flask to browse, search, and play videos and PDFs on your SSD.(originally Video Explorer 2.5)
-
+<p align="center">
+    <img width="70%" src="doc/figures/ttc2_pcb_3d.png">
+</p>
 ---
 
 ## Features
