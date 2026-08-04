@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Explorer 3.1.1 — Web-Based Media Explorer for Your SSD</title>
+<meta name="description" content="A simple web-based file & media explorer built with Python and Flask — browse, search, and play videos and PDFs on your SSD.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="skip-link"><a href="#main">Skip to content</a></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <span class="brand-icon" aria-hidden="true">📁</span>
+      <span>FILE <span class="brand-accent">EXPLORER</span></span>
+      <span class="brand-version">3.1.1</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#setup">Setup</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#structure">Structure</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/GoldernHaze/File-Explorer" target="_blank" rel="noopener">
+      View source →
+    </a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+
+      <div class="hero-text">
+        <span class="beta-tag">BETA · v3.1.1</span>
+        <h1 class="hero-title">A web-based file &amp;<br>media explorer<br>for your <span class="hero-accent">SSD</span></h1>
+        <p class="hero-sub">
+          Browse, search, and play videos and PDFs straight from your drive — no desktop
+          app, just Python, Flask, and a browser tab. Started as Video Explorer 2.5,
+          now a full local file manager.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/GoldernHaze/File-Explorer" target="_blank" rel="noopener">View on GitHub</a>
+          <a class="btn btn-ghost" href="#setup">Run it locally ↓</a>
+        </div>
+      </div>
+
+      <!-- SIGNATURE ELEMENT: interactive faux browser window -->
+      <div class="browser-mock" aria-label="File Explorer preview, click a folder">
+        <div class="browser-chrome">
+          <div class="chrome-dots"><span></span><span></span><span></span></div>
+          <div class="chrome-url">
+            <span class="lock" aria-hidden="true">🔒</span>
+            <span>server/browse/<span id="urlPath">home</span></span>
+          </div>
+        </div>
+        <div class="browser-body">
+          <div class="browser-toolbar">
+            <span class="crumb">📁 Browsing: <strong id="breadcrumb">Home</strong></span>
+            <span class="fake-search">Search &hellip;</span>
+          </div>
+          <div class="tile-grid" id="tileGrid">
+            <!-- populated by script.js -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section" id="features">
+    <div class="section-inner">
+      <p class="eyebrow">FEATURES</p>
+      <h2>Everything for browsing a drive from a browser tab</h2>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-icon">📂</span>
+          <h3>Browse Files &amp; Folders</h3>
+          <p>Navigate your SSD with ease, no terminal required.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">▶</span>
+          <h3>Play Videos</h3>
+          <p>Built-in video player for direct playback in-browser.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">📄</span>
+          <h3>PDF Viewer</h3>
+          <p>Read PDFs in a dedicated tab, no download needed.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h3>Global Search</h3>
+          <p>Find any file instantly across the whole drive.</p>
+        </article>
+        <article class="feature-card feature-new">
+          <span class="feature-icon">📤</span>
+          <h3>DropX</h3>
+          <p>Quick file share / drop.</p>
+          <span class="new-badge">NEW</span>
+        </article>
+        <article class="feature-card feature-new">
+          <span class="feature-icon">📝</span>
+          <h3>Text Editor</h3>
+          <p>Edit <code>.txt</code>, <code>.py</code>, and more, right in the browser.</p>
+          <span class="new-badge">NEW</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">⚙</span>
+          <h3>Custom Settings</h3>
+          <p>Toggle hidden files, system folders, and more.</p>
+        </article>
+        <article class="feature-card feature-new">
+          <span class="feature-icon">🎨</span>
+          <h3>Stylish UI</h3>
+          <p>Multiple themes with a clean, responsive design.</p>
+          <span class="new-badge">NEW</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECH STACK ============ -->
+  <section class="section section-alt">
+    <div class="section-inner narrow">
+      <p class="eyebrow">BUILT WITH</p>
+      <div class="stack-row">
+        <span class="stack-chip">Python 3</span>
+        <span class="stack-chip">Flask</span>
+        <span class="stack-chip">HTML</span>
+        <span class="stack-chip">CSS</span>
+        <span class="stack-chip">Jinja2</span>
+        <span class="stack-chip">JavaScript</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETUP ============ -->
+  <section class="section" id="setup">
+    <div class="section-inner narrow">
+      <p class="eyebrow">SETUP</p>
+      <h2>Run it locally</h2>
+      <p class="lede">Point it at your drive and open it in a browser.</p>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span class="terminal-title">zsh</span>
+        </div>
+        <pre class="terminal-body"><code><span class="cmt"># 1. clone the repo</span>
+<span class="prompt">$</span> git clone https://github.com/GoldernHaze/File-Explorer.git
+<span class="prompt">$</span> cd File-Explorer
+
+<span class="cmt"># 2. (optional) virtual environment</span>
+<span class="prompt">$</span> python3 -m venv venv
+<span class="prompt">$</span> source venv/bin/activate
+
+<span class="cmt"># 3. install Flask</span>
+<span class="prompt">$</span> pip install flask
+
+<span class="cmt"># 4. update the SSD path in app.py, then run</span>
+<span class="prompt">$</span> python3 app.py
+
+<span class="out">→ open http://0.0.0.0 (or the address shown)</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROADMAP ============ -->
+  <section class="section section-alt" id="roadmap">
+    <div class="section-inner narrow">
+      <p class="eyebrow">ROADMAP</p>
+      <h2>In the upcoming update</h2>
+      <p class="lede-small">Last updated 25 Aug 25</p>
+      <ul class="roadmap-list">
+        <li><span class="roadmap-tag">NEXT</span> Fixing known issues</li>
+        <li><span class="roadmap-tag">NEXT</span> More settings</li>
+        <li><span class="roadmap-tag">NEXT</span> Dropping v3.1.1 (fixed)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ STRUCTURE ============ -->
+  <section class="section" id="structure">
+    <div class="section-inner narrow">
+      <p class="eyebrow">REFERENCE</p>
+      <h2>An example SSD layout</h2>
+      <p class="lede">
+        Folders like <code>Server/</code> can be renamed and hidden from the UI —
+        edit <code>hidden_folders</code> in <code>app.py</code> to match your own drive.
+      </p>
+      <pre class="tree-block"><code>ssd/
+├── Movies/
+│   └── Movie 1/
+│       ├── video1.mp4
+│       └── video2.mkv
+├── Shows/
+│   ├── Show 1/
+│   │   ├── Episode 1.mp4
+│   │   └── Episode 2.mp4
+│   └── Show 2/
+├── Server/            <span class="tree-note">← this app (renamed, hidden)</span>
+│   ├── app.py
+│   ├── README.md
+│   ├── assets/ static/ templates/
+│   └── venv/
+├── Books/
+│   └── Book 1/
+│       ├── Part 1.pdf
+│       └── Part 2.pdf
+└── SteamLibrary/</code></pre>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>File Explorer 3.1.1 — by GoldernHaze</span>
+    <a href="https://github.com/GoldernHaze/File-Explorer" target="_blank" rel="noopener">github.com/GoldernHaze/File-Explorer</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
