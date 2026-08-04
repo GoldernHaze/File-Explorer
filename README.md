@@ -74,6 +74,7 @@ note: (Due to some unavoidable issues updates might not come. Thanks if you read
 ## In Upcoming Update (last updated: 25 Aug 25)
 - fixing known issues
 - more settings
+- Adding more bugs for fixing them in future updates:)
 - droping next version 3.1.1(fixed).
 
 ---
